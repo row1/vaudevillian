@@ -1,6 +1,9 @@
-<?php defined( '_JEXEC' ) or die( 'Restricted access' ); 
+<?php 
+namespace com_vaudevillian\Tables;
+
+defined( '_JEXEC' ) or die( 'Restricted access' ); 
  
-class TableReview extends JTable
+class TableReview extends \JTable
 {                      
   /**
   * Constructor
