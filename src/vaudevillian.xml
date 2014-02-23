@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="component" version="3.2" method="upgrade">
  
-        <name>Vaudevillian</name>
+        <name>COM_VAUDEVILLIAN</name>
         <!-- The following elements are optional and free of formatting constraints -->
         <creationDate>February 2014</creationDate>
         <author>XXX</author>
-        <authorEmail>xxx@xxx</authorEmail>
         <authorUrl>http://sockware.net</authorUrl>
         <copyright>Copyright 2014 Sockware</copyright>
         <license>GPL 2</license>
         <!--  The version string is recorded in the components table -->
         <version>0.0.1</version>
         <!-- The description is optional and defaults to the name -->
-        <description>A review component for Joomla. </description>
+        <description>COM_VAUDEVILLIAN_DESCRIPTION</description>
  
  
         <install> <!-- Runs on install -->
@@ -20,6 +19,11 @@
                         <file driver="mysql" charset="utf8">sql/install.mysql.utf8.sql</file>
                 </sql>
         </install> 
+        <uninstall> <!-- Runs on uninstall -->
+                <sql>
+                        <file driver="mysql" charset="utf8">sql/uninstall.mysql.utf8.sql</file>
+                </sql>
+        </uninstall>        
         <update> <!-- Runs on update; New since J2.5 -->
                 <schemas>
                         <schemapath type="mysql">sql/updates/mysql</schemapath>
@@ -60,6 +64,7 @@
                     <folder>languages</folder>
                     <filename>index.html</filename>
                     <filename>vaudevillian.php</filename>
+                    <filename>access.xml</filename>
                     <!-- SQL files section -->
                     <folder>sql</folder>
             </files>
