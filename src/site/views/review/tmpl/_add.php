@@ -6,8 +6,9 @@
   <div class="modal-body">
 	<div class="row-fluid">
 		<form id="vv-review-form">
-			<input class="span12" type="text" name="title" placeholder="<?php echo JText::_('COM_VAUDEVILLIAN_TITLE'); ?>" />
-	      	<textarea class="span12" placeholder="<?php echo JText::_('COM_VAUDEVILLIAN_SUMMARY'); ?>" name="review" rows="10"></textarea>
+			<input class="span8" type="text" name="title" placeholder="<?php echo JText::_('COM_VAUDEVILLIAN_TITLE'); ?>" />
+			<input class="span4" type="text" name="alias" placeholder="<?php echo JText::_('COM_VAUDEVILLIAN_ALIAS'); ?>" />
+	      	<textarea class="span12" placeholder="<?php echo JText::_('COM_VAUDEVILLIAN_SUMMARY'); ?>" name="fulltext" rows="10"></textarea>
 		    <input type="hidden" name="user_id" value="<?php echo $this->user->id; ?>" />
 		    <input type="hidden" name="view" value="review" />
 		    <input type="hidden" name="model" value="review" />
