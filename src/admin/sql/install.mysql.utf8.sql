@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS  #__vaude_reviews (
+CREATE TABLE IF NOT EXISTS  `#__vaude_reviews` (
 	`id` int NOT NULL auto_increment,
 	`template_name` varchar(255) NOT NULL DEFAULT 'default',
 	`rating` DECIMAL(5,1) NOT NULL default '0',
