@@ -10,6 +10,7 @@ class Review extends Base
 		parent::__construct();
 	}
 	 
+	/* 
 	public function store()
 	{
 
@@ -29,4 +30,5 @@ class Review extends Base
 	{
 
 	}
+	 */
 } 

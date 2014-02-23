@@ -28,4 +28,8 @@ abstract class Base extends \JModelBase
 			$this->id = $ids;
 		}
 	}
+	
+	public function listItems()
+	{
+	}	
 } 
