@@ -14,6 +14,12 @@
         <!-- The description is optional and defaults to the name -->
         <description>A review component for Joomla. </description>
  
+ 
+        <install> <!-- Runs on install -->
+                <sql>
+                        <file driver="mysql" charset="utf8">sql/install.mysql.utf8.sql</file>
+                </sql>
+        </install> 
         <update> <!-- Runs on update; New since J2.5 -->
                 <schemas>
                         <schemapath type="mysql">sql/updates/mysql</schemapath>
@@ -24,25 +30,44 @@
         <!-- Note the folder attribute: This attribute describes the folder
                 to copy FROM in the package to install therefore files copied
                 in this section are copied from /site/ in the package -->
-        <files folder="site">
-                <filename>index.html</filename>
-                <filename>vaudevillian.php</filename>
+        <files folder="site">                
+				<folder>assets</folder>
+				<folder>controllers</folder>
+				<folder>helpers</folder>
+				<folder>languages</folder>
+				<folder>models</folder>
+				<folder>tables</folder>
+				<folder>views</folder>
+				
+				<filename>index.html</filename>
+				<filename>router.php</filename>    
+				<filename>vaudevillian.php</filename>  				 
         </files>
+        
+        <languages folder="site">
+    		<language tag="en-GB">languages/en-GB/en-GB.com_vaudevillian.ini</language>
+    	</languages>
  
         <administration>
-                <!-- Administration Menu Section -->
-                <menu>Vaudevillian</menu>
-                <!-- Administration Main File Copy Section -->
-                <!-- Note the folder attribute: This attribute describes the folder
-                        to copy FROM in the package to install therefore files copied
-                        in this section are copied from /admin/ in the package -->
-                <files folder="admin">
-                        <!-- Admin Main File Copy Section -->
-                        <filename>index.html</filename>
-                        <filename>vaudevillian.php</filename>
-                        <!-- SQL files section -->
-                        <folder>sql</folder>
-                </files>
+            <!-- Administration Menu Section -->
+            <menu>Vaudevillian</menu>
+            <!-- Administration Main File Copy Section -->
+            <!-- Note the folder attribute: This attribute describes the folder
+                    to copy FROM in the package to install therefore files copied
+                    in this section are copied from /admin/ in the package -->
+            <files folder="admin">
+                    <!-- Admin Main File Copy Section -->
+                    <folder>languages</folder>
+                    <filename>index.html</filename>
+                    <filename>vaudevillian.php</filename>
+                    <!-- SQL files section -->
+                    <folder>sql</folder>
+            </files>
+                
+			<languages folder="admin">
+				<language tag="en-GB">languages/en-GB/en-GB.com_vaudevillian.ini</language>
+				<language tag="en-GB">languages/en-GB/en-GB.com_vaudevillian.sys.ini</language>
+			</languages>                
         </administration>
  
 </extension>
