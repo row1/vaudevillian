@@ -32,4 +32,9 @@ abstract class Base extends \JModelBase
 	public function listItems()
 	{
 	}	
+	
+	public function save()
+	{
+		
+	}
 } 
