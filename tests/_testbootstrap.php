@@ -90,6 +90,7 @@ JError::setErrorHandling(E_WARNING, 'message');
 require_once JPATH_LIBRARIES . '/cms.php';
 
 $srcPath = realpath("../src");
+JTable::addIncludePath($srcPath.'/site/tables');
 require_once $srcPath."/site/models/base.php";
 require_once $srcPath."/site/models/review.php";
 

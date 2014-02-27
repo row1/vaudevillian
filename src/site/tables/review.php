@@ -1,5 +1,5 @@
 <?php 
-namespace com_vaudevillian\Tables;
+//namespace com_vaudevillian\Tables;
 
 defined( '_JEXEC' ) or die( 'Restricted access' ); 
  

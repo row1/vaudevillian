@@ -9,11 +9,18 @@ abstract class Base extends \JModelBase
 	protected $_total = null;
 	protected $_pagination = null;
 	protected $_db = null;
+	protected $_table_name = null;
 	public $id = null;
 	 
 	function __construct()
 	{
 		parent::__construct();
+		
+		$full_class_name = strtolower(get_class($this));
+		
+		$this->_table_name = end(explode('\\', $full_class_name));
+		//$this->_table_name = get_class($this);
+		
 		$this->_db = \JFactory::getDBO();
 	 
 		$app = \JFactory::getApplication();
@@ -35,6 +42,18 @@ abstract class Base extends \JModelBase
 	
 	public function save()
 	{
+    	$row = \JTable::getInstance($this->_table_name,'');
 		
+		if($row == null)
+		{
+			throw new \Exception('Error getting the table:'.$this->_table_name);			
+		}
+		
+	    if (!$row->bind($this))
+	    {
+	        return false;
+	    }
+		
+		return false;	
 	}
 } 
