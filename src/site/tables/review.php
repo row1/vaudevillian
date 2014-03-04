@@ -3,7 +3,7 @@ namespace com_vaudevillian\Tables;
 
 defined( '_JEXEC' ) or die( 'Restricted access' ); 
  
-class TableReview extends \JTable
+class Review extends \JTable
 {                      
   /**
   * Constructor
