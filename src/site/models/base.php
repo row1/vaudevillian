@@ -40,7 +40,7 @@ abstract class Base extends \JModelBase
 	
 	public function save()
 	{
-    	$row =& \JTable::getInstance($this->_table_name, '\com_vaudevillian\Tables\Table');
+    	$row =& \JTable::getInstance($this->_table_name, 'com_vaudevillian\\Tables\\');
 		
 		if($row == null)
 		{
