@@ -17,9 +17,7 @@ abstract class Base extends \JModelBase
 		parent::__construct();
 		
 		$full_class_name = strtolower(get_class($this));
-		
 		$this->_table_name = end(explode('\\', $full_class_name));
-		//$this->_table_name = get_class($this);
 		
 		$this->_db = \JFactory::getDBO();
 	 
@@ -42,7 +40,7 @@ abstract class Base extends \JModelBase
 	
 	public function save()
 	{
-    	$row = \JTable::getInstance($this->_table_name,'');
+    	$row =& \JTable::getInstance($this->_table_name, '\com_vaudevillian\Tables\Table');
 		
 		if($row == null)
 		{
