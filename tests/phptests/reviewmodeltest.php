@@ -1,5 +1,11 @@
 <?php
-
+/*
+* @package Vaudevillian.UnitTest
+*
+* @copyright Copyright (C) 2014 Sockware, Inc. All rights reserved.
+* @license GNU General Public License version 2 or later; see LICENSE
+* @link http://sockware.net
+*/
 class ReviewModelTest extends PHPUnit_Framework_TestCase
 {
 	protected function setUp()
@@ -44,16 +50,35 @@ class ReviewModelTest extends PHPUnit_Framework_TestCase
 		
 		return $review;
 	}
+
+	private function compareReviews($expected, $actual, $ignoreId = true)
+	{
+		foreach ($expected as $property => $property_value)
+		{    
+		    if($property == 'id' && $ignoreId)
+			{
+				continue;
+			}    
+			$this->assertEquals($property_value, $actual->{"$property"}, $property);
+		} 				
+		
+	}
 	
     public function testStoreReview()
     {
 		$model  = new com_vaudevillian\Models\Review();
-		
-		$savedReview = $model->store($this->createReview());
+		$toSave = $this->createReview();
+		$savedReview = $model->store($toSave);
 		
 		$this->assertNotEquals(false, $savedReview, "Save returned false.");
 				
         $this->assertGreaterThan(0, $savedReview->id, "The ID of a saved review must be greater than 0");
+		$this->compareReviews($toSave, $savedReview);
     }
+	
+	public function testLoadReview()
+	{
+		
+	}
 
 }

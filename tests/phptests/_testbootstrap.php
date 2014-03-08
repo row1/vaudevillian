@@ -1,4 +1,12 @@
 <?php
+/*
+* @package Vaudevillian.UnitTest
+*
+* @copyright Copyright (C) 2014 Sockware, Inc. All rights reserved.
+* @license GNU General Public License version 2 or later; see LICENSE
+* @link http://sockware.net
+*/
+
 //http://www.aldoapp.com/tutorials/12-how-to-do-test-driven-development-for-joomla-component-part-2.html
 //https://github.com/joomla/joomla-cms/blob/staging/tests/unit/bootstrap.php
 
@@ -7,6 +15,8 @@ require_once "_testbootstrapvariables.php";
 if (!is_dir(realpath($pathToJoomla))) {
 	throw new Exception("Could not find the folder: $pathToJoomla");
 }
+
+//Fake some required variables
 
 $_SERVER['HTTP_HOST'] = 'localhost';
 $_SERVER['REQUEST_METHOD'] = 'GET';
@@ -89,6 +99,7 @@ JError::setErrorHandling(E_WARNING, 'message');
 // Bootstrap the CMS libraries.
 require_once JPATH_LIBRARIES . '/cms.php';
 
+//TODO: you will need to adjust this to match your paths
 $srcPath = realpath("../../src");
 JTable::addIncludePath($srcPath.'/site/tables');
 require_once $srcPath."/site/models/base.php";
