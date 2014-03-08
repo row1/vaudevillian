@@ -16,7 +16,8 @@ class ReviewModelTest extends PHPUnit_Framework_TestCase
 		}
 		
 		//TODO: fill in the dates
-		$review = new com_vaudevillian\Models\Review();
+		//$review = new com_vaudevillian\Models\Review();
+		$review = new \stdClass();
 		$review->access = 1;
 		$review->alias = "alias-$fieldSuffix";
 		//$review->created =
@@ -44,13 +45,15 @@ class ReviewModelTest extends PHPUnit_Framework_TestCase
 		return $review;
 	}
 	
-    public function testSaveReview()
+    public function testStoreReview()
     {
-    	$model = $this->createReview();
+		$model  = new com_vaudevillian\Models\Review();
 		
-		$this->assertTrue($model->save(), "Save returned false.");
+		$savedReview = $model->store($this->createReview());
+		
+		$this->assertNotEquals(false, $savedReview, "Save returned false.");
 				
-        $this->assertGreaterThan(0, $model->id, "The ID of a saved review must be greater than 0");
+        $this->assertGreaterThan(0, $savedReview->id, "The ID of a saved review must be greater than 0");
     }
 
 }

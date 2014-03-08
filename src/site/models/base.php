@@ -38,7 +38,7 @@ abstract class Base extends \JModelBase
 	{
 	}	
 	
-	public function save()
+	public function store($data)
 	{
     	$row =& \JTable::getInstance($this->_table_name, 'com_vaudevillian\\Tables\\');
 		
@@ -47,11 +47,31 @@ abstract class Base extends \JModelBase
 			throw new \Exception('Error getting the table:'.$this->_table_name);			
 		}
 		
-	    if (!$row->bind($this))
+	    //if (!$row->bind($this))
+	    if (!$row->bind($data))
 	    {
 	        return false;
 	    }
 		
-		return false;	
+		$date = date("Y-m-d H:i:s");
+	    $row->modified = $date;
+	    if( !$row->created )
+	    {
+	      $row->created = $date;
+	    }
+	
+	    // Make sure the record is valid
+	    if (!$row->check())
+	    {
+	        return false;
+	    }
+	 
+	    if (!$row->store())
+	    {
+	        return false;
+	    }
+	
+	    return $row;
+
 	}
 } 

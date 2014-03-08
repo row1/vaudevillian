@@ -5,6 +5,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 class Review extends Base
 {
+	/*
 	public $template_name = null;//varchar(255) NOT NULL DEFAULT 'default'
 	public $rating = null; //DECIMAL(5,1) NOT NULL default '0'
 	public $title = null; //TEXT NOT NUL
@@ -34,7 +35,7 @@ class Review extends Base
 	public $metadata = null; //TEXT NOT NULL DEFAULT '',
 	
 	public $access = null; //int(10) unsigned NOT NULL DEFAULT '0',	
-	
+	*/
 	public function __construct()
 	{
 		parent::__construct();
