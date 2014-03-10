@@ -12,6 +12,15 @@ class ReviewModelTest extends PHPUnit_Framework_TestCase
     {
         //If this throws an exception, make sure that the db connection host is 127.0.0.1 and not localhost
 		$app = \JFactory::getApplication('site');
+		$deleteTestReviewsQuery = "DELETE FROM `mc19v_vaude_reviews` WHERE `title` LIKE 'test-%'";
+		
+		$db = JFactory::getDbo();
+        $query = $db->getQuery(true);
+        $query->delete()
+            ->from('#__vaude_reviews')
+            ->where("title LIKE 'test-%'");
+        $db->setQuery($query);
+		$db->query();
     }
 	
 	private function createReview($fieldSuffix = null)
@@ -82,12 +91,12 @@ class ReviewModelTest extends PHPUnit_Framework_TestCase
 		
 		$savedReview = $model->store($this->createReview());
 		
-		$loadedReview = $model->getItem($savedReview->id);		
+		$loadedReview = $model->getItem($savedReview->id);
 		
 		$this->assertNotNull($loadedReview);
 		$this->compareReviews($savedReview, $loadedReview);
 		
-		$loadedReview = $model->getItem(989456465465465);	
+		$loadedReview = $model->getItem(989456465465465);
 		$this->assertNull($loadedReview);
 	}
 
