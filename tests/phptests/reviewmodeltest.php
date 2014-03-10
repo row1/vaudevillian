@@ -38,8 +38,8 @@ class ReviewModelTest extends PHPUnit_Framework_TestCase
 		//$review->modified
 		$review->modified_by = $review->created_by;
 		$review->modified_by_alias = $review->created_by_alias;
-		//$review->publish_down
-		//$review->publish_up
+		$review->publish_down = '0000-00-00 00:00:00';
+		$review->publish_up = '0000-00-00 00:00:00';
 		$review->rating = 4;
 		$review->status = 'approved';
 		$review->status_reason ="statusreason-$fieldSuffix";
@@ -78,7 +78,17 @@ class ReviewModelTest extends PHPUnit_Framework_TestCase
 	
 	public function testLoadReview()
 	{
+		$model  = new com_vaudevillian\Models\Review();
 		
+		$savedReview = $model->store($this->createReview());
+		
+		$loadedReview = $model->getItem($savedReview->id);		
+		
+		$this->assertNotNull($loadedReview);
+		$this->compareReviews($savedReview, $loadedReview);
+		
+		$loadedReview = $model->getItem(989456465465465);	
+		$this->assertNull($loadedReview);
 	}
 
 }

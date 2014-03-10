@@ -40,11 +40,7 @@ abstract class Base extends \JModelBase
 		}
 	}
 	
-	public function listItems()
-	{
-	}	
-	
-	public function store($data)
+	private function &getTableInstance()
 	{
     	$row =& \JTable::getInstance($this->_table_name, 'com_vaudevillian\\Tables\\');
 		
@@ -52,6 +48,24 @@ abstract class Base extends \JModelBase
 		{
 			throw new \Exception('Error getting the table:'.$this->_table_name);			
 		}
+		return $row;
+	}
+	
+	public function getItems()
+	{
+	}
+	
+	public function getItem($id)
+	{
+		$id = intval($id, 10);
+	  	$row =& $this->getTableInstance();
+		$ableToLoad = $row->load($id);
+		return $ableToLoad ? $row : null;		
+	}
+	
+	public function store($data)
+	{
+		$row =& $this->getTableInstance();
 		
 	    //if (!$row->bind($this))
 	    if (!$row->bind($data))
