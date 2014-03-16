@@ -108,13 +108,18 @@ class ReviewModelTest extends PHPUnit_Framework_TestCase
 		$savedReviews[] = $model->store($this->createReview());
 		$savedReviews[] = $model->store($this->createReview());
 		
+		$cmp = function($a, $b) { return ($a['id'] < $b['id']) ? -1 : 1; };
+				
 		$loadedReviews = $model->getItems();
+		
+		uksort($savedReviews, $cmp);
+		uksort($loadedReviews, $cmp);
 		
 		$this->assertEquals(count($savedReviews), count($loadedReviews));
 		
 		for($i = 0; $i < count($savedReviews); $i++)
 		{
-			$this->compareReviews($savedReviews[i], $loadedReviews[i]);
+			$this->compareReviews($savedReviews[$i], $loadedReviews[$i]);
 		}
 		
 	}

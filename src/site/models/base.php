@@ -16,7 +16,9 @@ abstract class Base extends \JModelBase
 	protected $_pagination = null;
 	protected $_db = null;
 	protected $_table_name = null;
-	public $id = null;
+	public $id = null; //TODO: is this needed?
+	protected $limitstart   = 0;
+  	protected $limit        = 10;
 	 
 	function __construct()
 	{
@@ -52,10 +54,27 @@ abstract class Base extends \JModelBase
 		return $row;
 	}
 	
+	abstract protected function _buildQuery();
+	abstract protected function _buildWhere(&$query);
+	
+	protected function _getItems($query, $limitstart = 0, $limit = 0)
+	{
+    	$db = \JFactory::getDBO();
+    	$db->setQuery($query, $limitstart, $limit);
+    	$result = $db->loadObjectList();
+ 
+    	return $result;
+	}	
+	
 	public function getItems()
 	{
-	}
+		$query = $this->_buildQuery();    
+	    $query = $this->_buildWhere($query);
+	    
+	    $list = $this->_getItems($query, $this->limitstart, $this->limit);
 	
+	    return $list;
+	}		
 	public function getItem($id)
 	{
 		if(!is_numeric($id))
@@ -66,8 +85,7 @@ abstract class Base extends \JModelBase
 	  	$row =& $this->getTableInstance();
 		$ableToLoad = $row->load((int) $id);
 		return $ableToLoad ? $row : null;		
-	}
-	
+	}	
 	public function store($data)
 	{
 		$row =& $this->getTableInstance();
@@ -97,6 +115,5 @@ abstract class Base extends \JModelBase
 	    }
 	
 	    return $row;
-
 	}
 } 

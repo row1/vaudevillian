@@ -46,6 +46,31 @@ class Review extends Base
 	{
 		parent::__construct();
 	}
+	
+	protected function _buildQuery()
+	{
+	    $db = \JFactory::getDBO();
+	    $query = $db->getQuery(TRUE);
+	
+	    $query->select('r.id, r.template_name, r.rating, r.title, r.alias, r.introtext, r.fulltext, r.images,
+						r.thumbnails, r.created, r.created_by, r.created_by_alias, r.modified, r.modified_by,
+						r.modified_by_alias, r.publish_up, r.publish_down, r.user_review, r.status, r.status_reason, r.metakey, r.metadesc,
+						r.metadata, r.access');
+	    $query->from('#__vaude_reviews as r');
+	
+	
+	    $query->select('um.name as modifier');
+	    $query->leftjoin('#__users as um on um.id = r.modified_by');
+	
+	    $query->select('uc.name as creator');
+	    $query->leftjoin('#__users AS uc on uc.id = r.created_by');
+		
+	    return $query;
+	}
+	protected function _buildWhere(&$query)
+	{
+		return $query;
+	}	
 	 
 	/* 
 	public function store()
