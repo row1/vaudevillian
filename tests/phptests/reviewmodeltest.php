@@ -99,5 +99,24 @@ class ReviewModelTest extends PHPUnit_Framework_TestCase
 		$loadedReview = $model->getItem(989456465465465);
 		$this->assertNull($loadedReview);
 	}
+	
+	public function testLoadReviews()
+	{
+		$model  = new com_vaudevillian\Models\Review();
+		$savedReviews[] = $model->store($this->createReview());
+		$savedReviews[] = $model->store($this->createReview());
+		$savedReviews[] = $model->store($this->createReview());
+		$savedReviews[] = $model->store($this->createReview());
+		
+		$loadedReviews = $model->getItems();
+		
+		$this->assertEquals(count($savedReviews), count($loadedReviews));
+		
+		for($i = 0; $i < count($savedReviews); $i++)
+		{
+			$this->compareReviews($savedReviews[i], $loadedReviews[i]);
+		}
+		
+	}
 
 }
