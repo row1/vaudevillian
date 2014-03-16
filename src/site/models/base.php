@@ -23,7 +23,8 @@ abstract class Base extends \JModelBase
 		parent::__construct();
 		
 		$full_class_name = strtolower(get_class($this));
-		$this->_table_name = end(explode('\\', $full_class_name));
+		$namespaceSplit = explode('\\', $full_class_name);
+		$this->_table_name = end($namespaceSplit);
 		
 		$this->_db = \JFactory::getDBO();
 	 
@@ -42,7 +43,7 @@ abstract class Base extends \JModelBase
 	
 	private function &getTableInstance()
 	{
-    	$row =& \JTable::getInstance($this->_table_name, 'com_vaudevillian\\Tables\\');
+    	$row = \JTable::getInstance($this->_table_name, 'com_vaudevillian\\Tables\\');
 		
 		if($row == null)
 		{
@@ -57,9 +58,13 @@ abstract class Base extends \JModelBase
 	
 	public function getItem($id)
 	{
-		$id = intval($id, 10);
+		if(!is_numeric($id))
+		{
+			return null;
+		}
+		
 	  	$row =& $this->getTableInstance();
-		$ableToLoad = $row->load($id);
+		$ableToLoad = $row->load((int) $id);
 		return $ableToLoad ? $row : null;		
 	}
 	
