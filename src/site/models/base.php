@@ -9,6 +9,14 @@ namespace com_vaudevillian\Models;
 */
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
+class ModelContextBase
+{
+	public $id = null;
+	public $is_published = true;
+	public $query = null;
+	
+}
+
 abstract class Base extends \JModelBase
 {
 	private $__state_set = null;
@@ -19,8 +27,9 @@ abstract class Base extends \JModelBase
 	public $id = null; //TODO: is this needed?
 	protected $limitstart   = 0;
   	protected $limit        = 10;
+	const DATE_FORMAT = "Y-m-d H:i:s";
 	 
-	function __construct()
+	public function __construct()
 	{
 		parent::__construct();
 		
@@ -55,23 +64,27 @@ abstract class Base extends \JModelBase
 	}
 	
 	abstract protected function _buildQuery();
-	abstract protected function _buildWhere(&$query);
+	abstract protected function _buildWhere(ModelContextBase &$context);
 	
-	protected function _getItems($query, $limitstart = 0, $limit = 0)
+	protected function _getItems($context, $limitstart = 0, $limit = 0)
 	{
     	$db = \JFactory::getDBO();
-    	$db->setQuery($query, $limitstart, $limit);
+    	$db->setQuery($context->query, $limitstart, $limit);
     	$result = $db->loadObjectList();
  
     	return $result;
 	}	
 	
-	public function getItems()
+	public function getItems(ModelContextBase $context = null)
 	{
-		$query = $this->_buildQuery();    
-	    $query = $this->_buildWhere($query);
+		if(!$context)
+		{
+			$context = new ModelContextBase();
+		}
+		$context->query = $this->_buildQuery();    
+	    $this->_buildWhere($context);
 	    
-	    $list = $this->_getItems($query, $this->limitstart, $this->limit);
+	    $list = $this->_getItems($context, $this->limitstart, $this->limit);
 	
 	    return $list;
 	}		

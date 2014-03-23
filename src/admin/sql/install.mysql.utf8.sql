@@ -17,6 +17,7 @@ CREATE TABLE IF NOT EXISTS  `#__vaude_reviews` (
     `modified_by` INT DEFAULT NULL,
 	`modified_by_alias` varchar(255) DEFAULT NULL,
 
+	`state` tinyint NOT NULL default '0',
     `publish_up` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
     `publish_down` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',				
 

@@ -47,6 +47,7 @@ class ReviewModelTest extends PHPUnit_Framework_TestCase
 		//$review->modified
 		$review->modified_by = $review->created_by;
 		$review->modified_by_alias = $review->created_by_alias;
+		$review->state = 0;
 		$review->publish_down = '0000-00-00 00:00:00';
 		$review->publish_up = '0000-00-00 00:00:00';
 		$review->rating = 4;
@@ -96,8 +97,8 @@ class ReviewModelTest extends PHPUnit_Framework_TestCase
 		$this->assertNotNull($loadedReview);
 		$this->compareReviews($savedReview, $loadedReview);
 		
-		$loadedReview = $model->getItem(989456465465465);
-		$this->assertNull($loadedReview);
+		$nonExistentReview = $model->getItem(989456465465465);
+		$this->assertNull($nonExistentReview);
 	}
 	
 	public function testLoadReviews()
@@ -108,12 +109,21 @@ class ReviewModelTest extends PHPUnit_Framework_TestCase
 		$savedReviews[] = $model->store($this->createReview());
 		$savedReviews[] = $model->store($this->createReview());
 		
-		$cmp = function($a, $b) { return ($a['id'] < $b['id']) ? -1 : 1; };
-				
-		$loadedReviews = $model->getItems();
+		$cmp = function($a, $b) { return $a->id - $b->id;};
+		/*$cmp = function($a, $b) {
+		    if ($a->id == $b->id) {
+		        return 0;
+		    }
+		    return ($a->id < $b->id) ? -1 : 1;
+		};*/
 		
-		uksort($savedReviews, $cmp);
-		uksort($loadedReviews, $cmp);
+		$context = new com_vaudevillian\Models\ModelContextBase();
+		$context->is_published = null;//Ignore published state
+				
+		$loadedReviews = $model->getItems($context);
+		
+		$this->assertTrue(usort($savedReviews, $cmp));
+		$this->assertTrue(usort($loadedReviews, $cmp));		
 		
 		$this->assertEquals(count($savedReviews), count($loadedReviews));
 		
